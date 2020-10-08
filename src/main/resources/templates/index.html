@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Login Panel</title>
     <script crossorigin="anonymous"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -18,14 +18,14 @@
 </head>
 <body>
 <div class="container" style="text-align: center">
-<div>
-    <a href="/">
-        <img alt="logo" id="logo" src="/logo.png"/>
-    </a>
-</div>
-<h1>Welcome!</h1>
+    <div>
+        <a href="/">
+            <img alt="logo" id="logo" src="/logo.png"/>
+        </a>
+    </div>
+    <h1>Welcome!</h1>
 
-<p>Click <a th:href="@{/crud}"> here</a> to enter the CRUD Panel.</p>
+    <p>Click <a th:href="@{/crud}"> here</a> to enter the CRUD Panel.</p>
 </div>
 </body>
 </html>

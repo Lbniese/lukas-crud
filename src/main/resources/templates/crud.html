@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>CRUD Panel</title>
     <script crossorigin="anonymous"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -24,80 +24,85 @@
         </a>
     </div>
 
-<div class="btn-group btn-group-justified container">
-    <button class="btn btn-primary" id="viewassignmentTab" onclick="openPage('viewassignment', this, '#0099CC')">View assignments
-    </button>
-    <button class="btn btn-primary" id="createassignmentTab" onclick="openPage('createassignment', this, '#0099CC')">Create assignment
-    </button>
-</div>
-<br>
-<div class="tabcontent" id="createassignment">
-    <div id="formular">
-        <br>
-        <form action="/crud" method="post">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="Enter name">
-                <small id="smallDesc1" class="form-text text-muted">Enter a short name for the assignment.</small>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <input type="text" class="form-control" name="description" id="description" aria-describedby="emailHelp" placeholder="Enter description">
-                <small id="smallDesc2" class="form-text text-muted">Shortly describe the assignment.</small>
-            </div>
-            <br>
-            <button class="btn btn-primary" id="createbutton" type="submit">Create assignment</button>
-        </form>
+    <div class="btn-group btn-group-justified container">
+        <button class="btn btn-primary" id="viewassignmentTab" onclick="openPage('viewassignment', this, '#0099CC')">
+            View assignments
+        </button>
+        <button class="btn btn-primary" id="createassignmentTab"
+                onclick="openPage('createassignment', this, '#0099CC')">Create assignment
+        </button>
     </div>
-</div>
-<div class="tabcontent container" id="viewassignment">
     <br>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Delete</th>
-            <th>Update</th>
+    <div class="tabcontent" id="createassignment">
+        <div id="formular">
+            <br>
+            <form action="/crud" method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input aria-describedby="emailHelp" class="form-control" id="name" name="name" placeholder="Enter name"
+                           type="text">
+                    <small class="form-text text-muted" id="smallDesc1">Enter a short name for the assignment.</small>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input aria-describedby="emailHelp" class="form-control" id="description" name="description"
+                           placeholder="Enter description" type="text">
+                    <small class="form-text text-muted" id="smallDesc2">Shortly describe the assignment.</small>
+                </div>
+                <br>
+                <button class="btn btn-primary" id="createbutton" type="submit">Create assignment</button>
+            </form>
+        </div>
+    </div>
+    <div class="tabcontent container" id="viewassignment">
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Delete</th>
+                <th>Update</th>
+            </tr>
+            </thead>
+            <tr th:each="assignment: ${assignments}">
+                <td data-label="Id" th:text="${assignment.id}"/>
+                <td data-label="Name" th:text="${assignment.name}"/>
+                <td data-label="Description" th:text="${assignment.description}"/>
+                <td data-label="Delete">
+                    <a th:href="@{'/deleteassignment/'+${assignment.id}}">
+                        <button class="btn btn-outline-primary"
+                                onclick="return confirm('Are you sure you want to delete?')">Delete
+                        </button>
+                    </a>
+                </td>
+                <td data-label="Update">
+                    <a th:href="@{'/updateassignment/'+${assignment.id}}">
+                        <button class="btn btn-outline-primary">Update</button>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-        </tr>
-        </thead>
-        <tr th:each="assignment: ${assignments}">
-            <td data-label="Id" th:text="${assignment.id}"/>
-            <td data-label="Name" th:text="${assignment.name}"/>
-            <td data-label="Description" th:text="${assignment.description}"/>
-            <td data-label="Delete">
-                <a th:href="@{'/deleteassignment/'+${assignment.id}}">
-                    <button class="btn btn-outline-primary" onclick="return confirm('Are you sure you want to delete?')">Delete
-                    </button>
-                </a>
-            </td>
-            <td data-label="Update">
-                <a th:href="@{'/updateassignment/'+${assignment.id}}">
-                    <button class="btn btn-outline-primary">Update</button>
-                </a>
-            </td>
-        </tr>
-    </table>
-</div>
+    <script>
+        function openPage(pageName, elmnt, color) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("btn btn-primary");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+            document.getElementById(pageName).style.display = "block";
+            elmnt.style.backgroundColor = color;
+        }
 
-<script>
-    function openPage(pageName, elmnt, color) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("btn btn-primary");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].style.backgroundColor = "";
-        }
-        document.getElementById(pageName).style.display = "block";
-        elmnt.style.backgroundColor = color;
-    }
-    document.getElementById("viewassignmentTab").click();
-</script>
+        document.getElementById("viewassignmentTab").click();
+    </script>
 
 </div>
 </body>
