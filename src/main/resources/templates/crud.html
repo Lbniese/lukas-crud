@@ -1,16 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CRUD Panel</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div style="text-align: center">
+        <a href="/">
+            <img alt="logo" id="logo" src="/logo.png"/>
+        </a>
+    </div>
 
-<h1>Welcome to the CRUD Panel</h1>
+<div class="btn-group btn-group-justified container">
+    <button class="btn btn-primary" id="viewassignmentTab" onclick="openPage('viewassignment', this, '#0099CC')">View assignments
+    </button>
+    <button class="btn btn-primary" id="createassignmentTab" onclick="openPage('createassignment', this, '#0099CC')">Create assignment
+    </button>
+</div>
+<br>
+<div class="tabcontent" id="createassignment">
+    <div id="formular">
+        <br>
+        <form action="/crud" method="post">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="Enter name">
+                <small id="smallDesc1" class="form-text text-muted">Enter a short name for the assignment.</small>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" name="description" id="description" aria-describedby="emailHelp" placeholder="Enter description">
+                <small id="smallDesc2" class="form-text text-muted">Shortly describe the assignment.</small>
+            </div>
+            <br>
+            <button class="btn btn-primary" id="createbutton" type="submit">Create assignment</button>
+        </form>
+    </div>
+</div>
+<div class="tabcontent container" id="viewassignment">
+    <br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Delete</th>
+            <th>Update</th>
 
+        </tr>
+        </thead>
+        <tr th:each="assignment: ${assignments}">
+            <td data-label="Id" th:text="${assignment.id}"/>
+            <td data-label="Name" th:text="${assignment.name}"/>
+            <td data-label="Description" th:text="${assignment.description}"/>
+            <td data-label="Delete">
+                <a th:href="@{'/deleteassignment/'+${assignment.id}}">
+                    <button class="btn btn-outline-primary" onclick="return confirm('Are you sure you want to delete?')">Delete
+                    </button>
+                </a>
+            </td>
+            <td data-label="Update">
+                <a th:href="@{'/updateassignment/'+${assignment.id}}">
+                    <button class="btn btn-outline-primary">Update</button>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    function openPage(pageName, elmnt, color) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("btn btn-primary");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+        document.getElementById(pageName).style.display = "block";
+        elmnt.style.backgroundColor = color;
+    }
+    document.getElementById("viewassignmentTab").click();
+</script>
+
+</div>
 </body>
 </html>
