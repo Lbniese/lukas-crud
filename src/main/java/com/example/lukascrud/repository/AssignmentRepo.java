@@ -15,10 +15,9 @@ public class AssignmentRepo {
     @Autowired
     JdbcTemplate template;
 
-    public Assignment createAssignment(Assignment assignment) {
+    public void createAssignment(Assignment assignment) {
         String sql = "INSERT INTO Assignment (name, description) VALUES(?,?)";
         template.update(sql, assignment.getName(), assignment.getDescription());
-        return null;
     }
 
     public List<Assignment> fetchAll() {
@@ -39,10 +38,9 @@ public class AssignmentRepo {
         return template.update(sql, id) > 0;
     }
 
-    public Assignment updateAssignment(int id, Assignment assignment) {
+    public void updateAssignment(int id, Assignment assignment) {
         String sql = "UPDATE Assignment SET name=?, description=? WHERE id=?";
         template.update(sql, assignment.getName(), assignment.getDescription(), id);
-        return null;
     }
 
 

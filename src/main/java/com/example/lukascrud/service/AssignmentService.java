@@ -14,9 +14,8 @@ public class AssignmentService {
     @Autowired
     AssignmentRepo assignmentRepo;
 
-    public String createAssignment(Assignment assignment) {
+    public void createAssignment(Assignment assignment) {
         assignmentRepo.createAssignment(assignment);
-        return null;
     }
 
     public List<Assignment> fetchAll() {
@@ -35,8 +34,8 @@ public class AssignmentService {
         }
     }
 
-    public Assignment updateAssignment(int id, Assignment assignment) {
-        return assignmentRepo.updateAssignment(id, assignment);
+    public void updateAssignment(int id, Assignment assignment) {
+        assignmentRepo.updateAssignment(id, assignment);
     }
 
 
