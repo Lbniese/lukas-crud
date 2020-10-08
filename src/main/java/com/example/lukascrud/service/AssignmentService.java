@@ -22,8 +22,8 @@ public class AssignmentService {
         return assignmentRepo.fetchAll();
     }
 
-    public Assignment findAssignmentById(int id) {
-        return assignmentRepo.findAssignmentById(id);
+    public Assignment fetchAssignmentById(int id) {
+        return assignmentRepo.fetchAssignmentById(id);
     }
 
     public Boolean deleteAssignment(int id) {

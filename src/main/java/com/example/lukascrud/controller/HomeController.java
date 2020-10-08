@@ -50,7 +50,7 @@ public class HomeController {
     @GetMapping("/updateassignment/{id}")
     //@PreAuthorize("hasRole('USER')")
     public String updateAssignment(@PathVariable("id") int id, Model model) {
-        model.addAttribute("assignment", assignmentService.findAssignmentById(id));
+        model.addAttribute("assignment", assignmentService.fetchAssignmentById(id));
         return "updateassignment";
     }
 

@@ -26,7 +26,7 @@ public class AssignmentRepo {
         return template.query(sql, rowMapper);
     }
 
-    public Assignment findAssignmentById(int id) {
+    public Assignment fetchAssignmentById(int id) {
         String sql = "SELECT * FROM assignment WHERE id = ?";
         RowMapper<Assignment> rowMapper = new BeanPropertyRowMapper<>(Assignment.class);
         Assignment assignment = template.queryForObject(sql, rowMapper, id);
