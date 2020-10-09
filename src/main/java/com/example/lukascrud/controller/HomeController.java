@@ -2,6 +2,8 @@ package com.example.lukascrud.controller;
 
 import com.example.lukascrud.model.Assignment;
 import com.example.lukascrud.service.AssignmentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,8 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
     @Autowired
     AssignmentService assignmentService;
 
@@ -24,16 +28,16 @@ public class HomeController {
     }
 
     @GetMapping("/crud")
-    //@PreAuthorize("hasRole('USER')")
     public String crud(Model model) {
+        logger.info("[GET] Calling fetch assignments");
         List<Assignment> assignmentList = assignmentService.fetchAll();
         model.addAttribute("assignments", assignmentList);
         return "crud";
     }
 
     @PostMapping("/crud")
-    //@PreAuthorize("hasRole('USER')")
     public String crud(@ModelAttribute Assignment assignment, Model model) {
+        logger.info("[POST] Calling create assignment");
         assignmentService.createAssignment(assignment);
         List<Assignment> assignmentList = assignmentService.fetchAll();
         model.addAttribute("assignments", assignmentList);
@@ -41,22 +45,22 @@ public class HomeController {
     }
 
     @GetMapping("/deleteassignment/{id}")
-    //@PreAuthorize("hasRole('USER')")
     public String deleteAssignment(@PathVariable("id") int id) {
+        logger.info("[GET] Calling delete assignment");
         assignmentService.deleteAssignment(id);
         return "redirect:/crud";
     }
 
     @GetMapping("/updateassignment/{id}")
-    //@PreAuthorize("hasRole('USER')")
     public String updateAssignment(@PathVariable("id") int id, Model model) {
+        logger.info("[GET] Calling update assignment");
         model.addAttribute("assignment", assignmentService.fetchAssignmentById(id));
         return "updateassignment";
     }
 
     @PostMapping("/crud/updateassignment")
-    //@PreAuthorize("hasRole('USER')")
     public String updateAssignment(@ModelAttribute Assignment assignment) {
+        logger.info("[POST] Calling update assignment");
         assignmentService.updateAssignment(assignment.getId(), assignment);
         return "redirect:/crud";
     }
