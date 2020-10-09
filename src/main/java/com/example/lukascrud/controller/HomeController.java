@@ -17,6 +17,7 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+    //Logging for whenever someone visits a page
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @Autowired
