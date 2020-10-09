@@ -14,28 +14,28 @@ public class AssignmentService {
     @Autowired
     AssignmentRepo assignmentRepo;
 
-    public void createAssignment(Assignment assignment) {
-        assignmentRepo.createAssignment(assignment);
+    public void create(Assignment assignment) {
+        assignmentRepo.create(assignment);
     }
 
     public List<Assignment> fetchAll() {
         return assignmentRepo.fetchAll();
     }
 
-    public Assignment fetchAssignmentById(int id) {
-        return assignmentRepo.fetchAssignmentById(id);
+    public Assignment fetchById(int id) {
+        return assignmentRepo.fetchById(id);
     }
 
-    public Boolean deleteAssignment(int id) {
+    public Boolean delete(int id) {
         try {
-            return assignmentRepo.deleteAssignment(id);
+            return assignmentRepo.delete(id);
         } catch (DataIntegrityViolationException ex) {
             return false;
         }
     }
 
-    public void updateAssignment(int id, Assignment assignment) {
-        assignmentRepo.updateAssignment(id, assignment);
+    public void update(int id, Assignment assignment) {
+        assignmentRepo.update(id, assignment);
     }
 
 

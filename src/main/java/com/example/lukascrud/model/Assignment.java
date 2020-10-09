@@ -1,18 +1,26 @@
 package com.example.lukascrud.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Assignment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String description;
 
     public Assignment() {
 
+    }
+
+    public Assignment(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public Assignment(int id, String name, String description) {
@@ -43,5 +51,14 @@ public class Assignment {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Assignment{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

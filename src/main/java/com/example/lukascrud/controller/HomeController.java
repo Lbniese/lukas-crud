@@ -38,30 +38,30 @@ public class HomeController {
     @PostMapping("/crud")
     public String crud(@ModelAttribute Assignment assignment, Model model) {
         logger.info("[POST] Calling create assignment");
-        assignmentService.createAssignment(assignment);
+        assignmentService.create(assignment);
         List<Assignment> assignmentList = assignmentService.fetchAll();
         model.addAttribute("assignments", assignmentList);
         return "crud";
     }
 
-    @GetMapping("/deleteassignment/{id}")
+    @GetMapping("/assignment/delete/{id}")
     public String deleteAssignment(@PathVariable("id") int id) {
         logger.info("[GET] Calling delete assignment");
-        assignmentService.deleteAssignment(id);
+        assignmentService.delete(id);
         return "redirect:/crud";
     }
 
-    @GetMapping("/updateassignment/{id}")
+    @GetMapping("/assignment/update/{id}")
     public String updateAssignment(@PathVariable("id") int id, Model model) {
         logger.info("[GET] Calling update assignment");
-        model.addAttribute("assignment", assignmentService.fetchAssignmentById(id));
-        return "updateassignment";
+        model.addAttribute("assignment", assignmentService.fetchById(id));
+        return "update-assignment";
     }
 
-    @PostMapping("/crud/updateassignment")
+    @PostMapping("/crud/assignment/update")
     public String updateAssignment(@ModelAttribute Assignment assignment) {
         logger.info("[POST] Calling update assignment");
-        assignmentService.updateAssignment(assignment.getId(), assignment);
+        assignmentService.update(assignment.getId(), assignment);
         return "redirect:/crud";
     }
 

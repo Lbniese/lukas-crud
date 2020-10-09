@@ -72,14 +72,14 @@
                 <td data-label="Name" th:text="${assignment.name}"/>
                 <td data-label="Description" th:text="${assignment.description}"/>
                 <td data-label="Delete">
-                    <a th:href="@{'/deleteassignment/'+${assignment.id}}">
+                    <a th:href="@{'/assignment/delete/'+${assignment.id}}">
                         <button class="btn btn-outline-primary"
                                 onclick="return confirm('Are you sure you want to delete?')">Delete
                         </button>
                     </a>
                 </td>
                 <td data-label="Update">
-                    <a th:href="@{'/updateassignment/'+${assignment.id}}">
+                    <a th:href="@{'/assignment/update/'+${assignment.id}}">
                         <button class="btn btn-outline-primary">Update</button>
                     </a>
                 </td>
