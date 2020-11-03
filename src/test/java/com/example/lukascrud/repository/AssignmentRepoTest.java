@@ -42,12 +42,14 @@ class AssignmentRepoTest {
         assertEquals(1, assignment.getId());
     }
 
+    /*
     @Test
     public void testNameFetchAssignmentById() {
         Assignment assignment = assignmentRepo.fetchById(1);
 
         assertEquals("Web Server", assignment.getName());
     }
+    */
 
     @Test
     public void testDescFetchAssignmentById() {
